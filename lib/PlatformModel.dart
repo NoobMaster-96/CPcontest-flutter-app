@@ -14,46 +14,46 @@ List<Platform> platforms = [
   Platform(
     name: 'CodeForces',
     url: 'https://www.kontests.net/api/v1/codeforces',
-    imgurl: 'assets/Logos/codeforces.jpg',
+    imgurl: 'assets/images/codeforces.jpg',
   ),
   Platform(
     name: 'TopCoder',
     url: 'https://www.kontests.net/api/v1/top_coder',
-    imgurl: 'assets/Logos/topcoder.jpg',
+    imgurl: 'assets/images/topcoder.jpg',
   ),
   Platform(
     name: 'AtCoder',
     url: 'https://www.kontests.net/api/v1/at_coder',
-    imgurl: 'assets/Logos/atcoder.jpg',
+    imgurl: 'assets/images/atcoder.jpg',
   ),
   Platform(
     name: 'CodeChef',
     url: 'https://www.kontests.net/api/v1/code_chef',
-    imgurl: 'assets/Logos/codechef.jpg',
+    imgurl: 'assets/images/codechef.jpg',
   ),
   Platform(
     name: 'CS Academy',
     url: 'https://www.kontests.net/api/v1/cs_academy',
-    imgurl: 'assets/Logos/csacademy.jpg',
+    imgurl: 'assets/images/csacademy.jpg',
   ),
   Platform(
     name: 'HackerRank',
     url: 'https://www.kontests.net/api/v1/hacker_rank',
-    imgurl: 'assets/Logos/hackerrank.jpg',
+    imgurl: 'assets/images/hackerrank.jpg',
   ),
   Platform(
     name: 'HackerEarth',
     url: 'https://www.kontests.net/api/v1/hacker_earth',
-    imgurl: 'assets/Logos/hackerearth.jpg',
+    imgurl: 'assets/images/hackerearth.jpg',
   ),
   Platform(
     name: 'Kick Start',
     url: 'https://www.kontests.net/api/v1/kick_start',
-    imgurl: 'assets/Logos/kickstart.jpg',
+    imgurl: 'assets/images/kickstart.JPG',
   ),
   Platform(
     name: 'LeetCode',
     url: 'https://www.kontests.net/api/v1/leet_code',
-    imgurl: 'assets/Logos/leetcode.jpg',
+    imgurl: 'assets/images/leetcode.jpg',
   ),
 ];

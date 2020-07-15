@@ -11,7 +11,8 @@ class MyApp extends StatelessWidget {
       debugShowCheckedModeBanner: false,
       title: 'Contest Reminder',
       theme: ThemeData(
-        primaryColor: new Color(0xff013db7),
+        primaryColor: Color(0xFF000000),
+        accentColor: Color(0xFF212121),
       ),
       home: HomeScreen(),
     );

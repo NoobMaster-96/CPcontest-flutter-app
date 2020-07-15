@@ -1,8 +1,6 @@
-import 'dart:convert';
-
+import 'PlatformModel.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/rendering.dart';
-import 'package:http/http.dart' as http;
+import 'PlatformScreen.dart';
 
 class HomeScreen extends StatefulWidget {
   @override
@@ -10,65 +8,111 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
-  final String url = "https://www.kontests.net/api/v1/sites";
-  List data;
-
-  @override
-  void initState() {
-    super.initState();
-    this.getJsonData();
-  }
-
-  Future<String> getJsonData() async {
-    var response = await http
-        .get(Uri.encodeFull(url), headers: {"Accept": "application/json"});
-    print(response.body);
-
-    setState(() {
-      data = jsonDecode(response.body);
-    });
-
-    return "Success";
-  }
-
   @override
   Widget build(BuildContext context) {
-    return new Scaffold(
-      body: CustomScrollView(
-        slivers: <Widget>[
-          SliverAppBar(
-            expandedHeight: 200.0,
-            title: Center(
-                child: Text(
-              'Upcoming Contests',
-              style: TextStyle(
-                fontSize: 32.0,
-                fontWeight: FontWeight.bold,
-              ),
-            )),
-          ),
-          SliverFillRemaining(
-            child: new ListView.builder(
-              itemCount: data == null ? 0 : data.length,
-              itemBuilder: (BuildContext context, int index) {
-                return new Container(
-                  child: new Center(
-                    child: new Column(
-                      crossAxisAlignment: CrossAxisAlignment.stretch,
-                      children: <Widget>[
-                        new Card(
-                          child: new Container(
-                            child: new Text(data[index][0]),
-                            padding: const EdgeInsets.all(20.0),
-                          ),
-                        )
-                      ],
+    return Scaffold(
+      backgroundColor: Theme.of(context).primaryColor,
+      appBar: PreferredSize(
+        preferredSize: Size.fromHeight(150.0),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            AppBar(
+              title: Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: <Widget>[
+                  Text(
+                    'Upcoming Contests',
+                    style: TextStyle(
+                      fontSize: 36,
+                      fontWeight: FontWeight.bold,
                     ),
                   ),
-                );
-              },
+                ],
+              ),
+              elevation: 0.0,
             ),
-          )
+          ],
+        ),
+      ),
+      body: Column(
+        children: <Widget>[
+          Expanded(
+            child: Container(
+              decoration: BoxDecoration(
+                color: Theme.of(context).accentColor,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(30.0),
+                  topRight: Radius.circular(30.0),
+                ),
+              ),
+              child: ListView.builder(
+                  scrollDirection: Axis.vertical,
+                  itemCount: platforms.length,
+                  itemBuilder: (BuildContext context, int index) {
+                    Platform platform = platforms[index];
+                    return GestureDetector(
+                      onTap: () => Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                          builder: (_) => PlatformScreen(
+                            platform: platform,
+                          ),
+                        ),
+                      ),
+                      child: Container(
+                        margin: EdgeInsets.all(10.0),
+                        height: 100,
+                        decoration: BoxDecoration(
+                          color: Theme.of(context).primaryColor,
+                          borderRadius: BorderRadius.circular(20.0),
+                          boxShadow: [
+                            BoxShadow(
+                              color: Colors.black26,
+                              offset: Offset(0.0, 2.0),
+                              blurRadius: 6.0,
+                            ),
+                          ],
+                        ),
+                        child: Stack(
+                          children: <Widget>[
+                            Hero(
+                              tag: platform.imgurl,
+                              child: Padding(
+                                padding: const EdgeInsets.all(3.0),
+                                child: ClipRRect(
+                                  borderRadius: BorderRadius.circular(18.0),
+                                  child: Image(
+                                    height: 96,
+                                    width: 96,
+                                    image: AssetImage(platform.imgurl),
+                                    fit: BoxFit.cover,
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsets.fromLTRB(
+                                  100.0, 3.0, 3.0, 3.0),
+                              child: Container(
+                                child: Center(
+                                  child: Text(
+                                    platform.name,
+                                    style: TextStyle(
+                                      color: Colors.white,
+                                      fontSize: 28,
+                                    ),
+                                  ),
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                      ),
+                    );
+                  }),
+            ),
+          ),
         ],
       ),
     );
