@@ -5,9 +5,9 @@ It also you can register to those contest through the app only.
 
 ## Getting Started
 
-Download and install the apk file provied in the repository.
+Download and install the apk from the provided download link.
 
-Or use the direct download link - https://drive.google.com/file/d/1hyV1owyMU5RPTjWa0ZSi6Fc6-h8NRDwy/view?usp=sharing
+download link - https://drive.google.com/file/d/1hyV1owyMU5RPTjWa0ZSi6Fc6-h8NRDwy/view?usp=sharing
 
 No need for any registration.
 
