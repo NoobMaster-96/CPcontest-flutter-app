@@ -16,5 +16,4 @@ No device permissions required.
 ## App Layout
 
 ![Home Screen](https://github.com/Avi-nash5/CPcontest-flutter-app/blob/master/Screenshot_20200718-023724.jpg)
-
 ![Platform Screen](https://github.com/Avi-nash5/CPcontest-flutter-app/blob/master/Screenshot_20200718-023715.jpg)
