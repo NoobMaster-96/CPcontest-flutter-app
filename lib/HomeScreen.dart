@@ -8,8 +8,16 @@ class HomeScreen extends StatefulWidget {
 }
 
 class HomeScreenState extends State<HomeScreen> {
+  void getitdone() {
+    int n = platforms.length;
+    for (int i = 0; i < n; i++) {
+      platforms[i].getJsonData();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
+    getitdone();
     return Scaffold(
       backgroundColor: Theme.of(context).primaryColor,
       appBar: PreferredSize(
@@ -40,11 +48,7 @@ class HomeScreenState extends State<HomeScreen> {
           Expanded(
             child: Container(
               decoration: BoxDecoration(
-                color: Theme.of(context).accentColor,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(30.0),
-                  topRight: Radius.circular(30.0),
-                ),
+                color: Theme.of(context).primaryColor,
               ),
               child: ListView.builder(
                   scrollDirection: Axis.vertical,
@@ -62,15 +66,15 @@ class HomeScreenState extends State<HomeScreen> {
                       ),
                       child: Container(
                         margin: EdgeInsets.all(10.0),
-                        height: 100,
+                        height: 75,
                         decoration: BoxDecoration(
-                          color: Theme.of(context).primaryColor,
+                          color: Theme.of(context).accentColor,
                           borderRadius: BorderRadius.circular(20.0),
                           boxShadow: [
                             BoxShadow(
-                              color: Colors.black26,
-                              offset: Offset(0.0, 2.0),
-                              blurRadius: 6.0,
+                              color: Colors.black12,
+                              offset: Offset(0.0, 10.0),
+                              blurRadius: 10.0,
                             ),
                           ],
                         ),
@@ -83,8 +87,8 @@ class HomeScreenState extends State<HomeScreen> {
                                 child: ClipRRect(
                                   borderRadius: BorderRadius.circular(18.0),
                                   child: Image(
-                                    height: 96,
-                                    width: 96,
+                                    height: 73,
+                                    width: 73,
                                     image: AssetImage(platform.imgurl),
                                     fit: BoxFit.cover,
                                   ),
@@ -93,7 +97,7 @@ class HomeScreenState extends State<HomeScreen> {
                             ),
                             Padding(
                               padding: const EdgeInsets.fromLTRB(
-                                  100.0, 3.0, 3.0, 3.0),
+                                  75.0, 3.0, 3.0, 3.0),
                               child: Container(
                                 child: Center(
                                   child: Text(

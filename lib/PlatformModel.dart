@@ -1,13 +1,48 @@
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+
 class Platform {
   String name;
   String url;
   String imgurl;
+  List data;
 
   Platform({
     this.name,
     this.url,
     this.imgurl,
   });
+
+  Future<String> getJsonData() async {
+    var response = await http
+        .get(Uri.encodeFull(this.url), headers: {"Accept": "application/json"});
+    this.data = jsonDecode(response.body);
+    convert(data);
+    print(data);
+    return "Succes";
+  }
+
+  void convert(List temp) {
+    var now = new DateTime.now();
+    now = now.toLocal();
+    int n = temp.length;
+    for (int i = 0; i < n; i++) {
+      var start = DateTime.parse(temp[i]["start_time"]);
+      var end = DateTime.parse(temp[i]["end_time"]);
+      start = start.toLocal();
+      end = end.toLocal();
+      int diff = end.difference(now).inMinutes;
+      temp[i]["start_time"] = start.toString();
+      temp[i]["end_time"] = end.toString();
+      if (diff < 0) {
+        temp[i]["status"] = "Over";
+      } else if (temp[i]["status"] == "CODING") {
+        temp[i]["status"] = "Ongoing";
+      } else {
+        temp[i]["status"] = "Upcoming";
+      }
+    }
+  }
 }
 
 List<Platform> platforms = [

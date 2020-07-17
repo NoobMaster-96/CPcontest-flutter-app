@@ -1,8 +1,7 @@
-import 'dart:convert';
+import 'package:url_launcher/url_launcher.dart';
 import 'PlatformModel.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/rendering.dart';
-import 'package:http/http.dart' as http;
 
 class PlatformScreen extends StatefulWidget {
   final Platform platform;
@@ -14,43 +13,6 @@ class PlatformScreen extends StatefulWidget {
 }
 
 class PlatformScreenState extends State<PlatformScreen> {
-  List data;
-  int n;
-  @override
-  void initState() {
-    super.initState();
-    this.getJsonData();
-  }
-
-  Future<String> getJsonData() async {
-    var response = await http.get(Uri.encodeFull(widget.platform.url),
-        headers: {"Accept": "application/json"});
-    print(response.body);
-
-    setState(() {
-      data = jsonDecode(response.body);
-    });
-    n = data.length;
-    print(data);
-    convert();
-    return "Success";
-  }
-
-  void convert() {
-    print(n);
-    var now = new DateTime.now();
-    now = now.toLocal();
-    for (int i = 0; i < n; i++) {
-      var start = DateTime.parse(data[i]['start_time']);
-      var end = DateTime.parse(data[i]['end_time']);
-      start = start.toLocal();
-      end = end.toLocal();
-      data[i]['start_time'] = start.toString();
-      data[i]['end_time'] = end.toString();
-    }
-    print(data);
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -111,13 +73,13 @@ class PlatformScreenState extends State<PlatformScreen> {
                       ),
                       child: ListView.builder(
                           scrollDirection: Axis.vertical,
-                          itemCount: n,
+                          itemCount: widget.platform.data.length,
                           itemBuilder: (BuildContext context, int index) {
                             return Padding(
                               padding: const EdgeInsets.fromLTRB(
                                   15.0, 15.0, 10.0, 10.0),
                               child: Container(
-                                height: 150,
+                                height: 200,
                                 decoration: BoxDecoration(
                                     color: Theme.of(context).accentColor,
                                     borderRadius: BorderRadius.circular(20.0),
@@ -131,11 +93,90 @@ class PlatformScreenState extends State<PlatformScreen> {
                                 child: Column(
                                   children: <Widget>[
                                     Center(
+                                      child: Padding(
+                                        padding: const EdgeInsets.all(20.0),
+                                        child: Text(
+                                          widget.platform.data[index]["name"],
+                                          style: TextStyle(
+                                            color: Colors.white,
+                                            fontSize: 18,
+                                          ),
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 0, 20, 5),
                                       child: Text(
-                                        data[index]['name'],
+                                        'Starting Time - ' +
+                                            widget.platform.data[index]
+                                                ["start_time"],
                                         style: TextStyle(
                                           color: Colors.white,
-                                          fontSize: 18,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 0, 20, 5),
+                                      child: Text(
+                                        'Ending Time - ' +
+                                            widget.platform.data[index]
+                                                ["end_time"],
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 5, 20, 0),
+                                      child: Text(
+                                        'Status',
+                                        style: TextStyle(
+                                          color: Colors.white,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 0, 20, 5),
+                                      child: Text(
+                                        widget.platform.data[index]["status"],
+                                        style: TextStyle(
+                                          color: widget.platform.data[index]
+                                                      ["status"] ==
+                                                  "Ongoing"
+                                              ? Colors.red
+                                              : widget.platform.data[index]
+                                                          ["status"] ==
+                                                      "Upcoming"
+                                                  ? Colors.green
+                                                  : Colors.blue,
+                                          fontSize: 12,
+                                        ),
+                                      ),
+                                    ),
+                                    Padding(
+                                      padding: const EdgeInsets.fromLTRB(
+                                          20, 5, 20, 10),
+                                      child: Center(
+                                        child: RaisedButton(
+                                          onPressed: () async {
+                                            String url = widget
+                                                .platform.data[index]["url"];
+                                            if (await canLaunch(url)) {
+                                              await launch(url);
+                                            } else {
+                                              throw 'Could not launch $url';
+                                            }
+                                          },
+                                          child: Text(
+                                            'Register',
+                                          ),
                                         ),
                                       ),
                                     ),
