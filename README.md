@@ -14,3 +14,7 @@ No need for any registration.
 No device permissions required.
 
 ## App Layout
+
+![Home Screen](https://drive.google.com/file/d/1iA0Dd251lkwYRo7Nn5pqmaFGav4Qk8B2/view?usp=sharing)
+
+![Platform Screen](https://drive.google.com/file/d/1iLKcpYCHGs9PoGUvjuFsSPt9dzJJnF2P/view?usp=sharing)
